@@ -1,0 +1,362 @@
+:root {
+    /* Light Mode - Brown/Beige */
+    --primary-color: #8B5A2B;       /* Warm brown */
+    --secondary-color: #A78A7F;     /* Muted taupe */
+    --danger-color: #C77966;        /* Soft terracotta */
+    --warning-color: #D4A59A;       /* Dusty rose */
+    --accent-color: #B8A188;        /* Beige */
+    --text-color: #4A3F35;          /* Dark brown */
+    --bg-color: #F5F0E6;           /* Creamy beige */
+    --card-bg: #FFFDFA;             /* Warm white */
+    --border-color: #D3C9BC;        /* Light taupe */
+    --shadow-color: rgba(139, 90, 43, 0.1);
+    --header-bg: linear-gradient(135deg, #8B5A2B 0%, #B8A188 100%);
+    
+    background-image: linear-gradient(to bottom, 
+        rgba(245, 240, 230, 0.9) 0%, 
+        rgba(245, 240, 230, 0.95) 100%);
+}
+
+body.dark-mode {
+    /* Dark Mode - Deep Earth Tones */
+    --primary-color: #C19A6B;       /* Gold-brown */
+    --secondary-color: #7A6A5F;     /* Dark taupe */
+    --danger-color: #AB6B51;        /* Burnt sienna */
+    --warning-color: #D4B483;       /* Pale gold */
+    --accent-color: #8B7D6B;        /* Stone gray */
+    --text-color: #E0D5C8;          /* Cream text */
+    --bg-color: #2A2118;           /* Dark chocolate */
+    --card-bg: #3A2E24;            /* Warm dark brown */
+    --border-color: #5D4C3D;        /* Coffee brown */
+    --shadow-color: rgba(0, 0, 0, 0.4);
+    --header-bg: linear-gradient(135deg, #3A2E24 0%, #8B7D6B 100%);
+    
+    background-image: none;
+}
+
+/* Enhanced elements for both modes */
+.stopwatch-card, .laps-container {
+    border: 1px solid var(--border-color);
+    background-color: var(--card-bg);
+    box-shadow: 
+        0 2px 8px var(--shadow-color),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.header-box {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn {
+    transition: all 0.2s ease;
+}
+
+/* Dark mode specific enhancements */
+body.dark-mode .header-box {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+body.dark-mode .stopwatch-display {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; /* Reduced from 15px */
+}
+
+
+.header-box {
+    background: var(--header-bg);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 8px; /* Reduced from 15px */
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    animation: fadeIn 0.8s ease;
+}
+
+.header-box i {
+    font-size: 1.5rem;
+    color: var(--warning-color);
+}
+
+.header-box h1 {
+    font-weight: 600;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.stopwatch-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px; /* Added to replace container gap */
+}
+.stopwatch-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-color);
+}
+
+.stopwatch-display {
+    font-size: 2.5rem;
+    text-align: center;
+    margin: 15px 0;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 300;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.stopwatch-display::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 1px;
+    background: var(--primary-color);
+    margin: 8px auto;
+    opacity: 0.3;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 10px var(--shadow-color);
+}
+
+.btn i {
+    font-size: 0.9rem;
+}
+
+.main-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.main-btn:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    filter: brightness(1.1);
+}
+
+.side-btn {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.side-btn:hover:not(:disabled) {
+    background-color: var(--accent-color);
+    filter: brightness(1.1);
+}
+
+.theme-toggle-container {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.theme-toggle {
+    background-color: var(--primary-color);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px var(--shadow-color);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.laps-container {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    transition: all 0.3s ease;
+    margin-top: 0; /* Ensures no additional spacing */
+}
+
+.laps-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.laps-header h3 {
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lap-count {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.no-laps {
+    text-align: center;
+    padding: 20px 15px;
+    color: var(--text-color);
+    opacity: 0.6;
+}
+
+.no-laps i {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    opacity: 0.5;
+}
+
+.no-laps p {
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+
+.lap-table {
+    width: 100%;
+    margin-top: 8px;
+    font-size: 0.9rem;
+}
+.lap-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.lap-header {
+    font-weight: bold;
+    background: rgba(108, 92, 231, 0.07);
+    padding: 8px 0;
+}
+.lap-header span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.lap-row:last-child {
+    border-bottom: none;
+}
+
+/* Add pulse animation for running state */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4); }
+    70% { box-shadow: 0 0 0 8px rgba(108, 92, 231, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
+}
+
+.running .stopwatch-card {
+    animation: pulse 2s infinite;
+}
+
+/* Add fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 400px) {
+    .stopwatch-display {
+        font-size: 2.2rem;
+    }
+    
+    .btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .container {
+        gap: 12px;
+    }
+    
+    .stopwatch-card, .laps-container {
+        padding: 15px;
+    }
+    
+    .header-box {
+        padding: 12px 15px;
+    }
+    
+    .header-box h1 {
+        font-size: 1.2rem;
+    }
+}
