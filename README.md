@@ -20,7 +20,7 @@ Features a modern brown/beige theme with dark mode, lap recording, keyboard shor
 
 ## Demo
 
-![Stopwatch Screenshot](screenshot.png)
+🔗 Live Demo: [https://shahmams.github.io/SCT_WD_2/](https://shahmams.github.io/SCT_WD_2/)
 
 ## Getting Started
 
